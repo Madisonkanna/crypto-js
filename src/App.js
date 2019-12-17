@@ -7,12 +7,22 @@ class App extends React.Component {
     pass: null
   }
 
-  deriveKey = (e) => {
+  async generateKey(e) {
     // TODO w/ Rsa key: https://mdn.github.io/dom-examples/web-crypto/derive-key/index.html
     e.preventDefault()
 
     const pass = this.refs.passphraseItem.value;
-    console.log('Passphrase', pass)
+    //TextEncoder exposes encode func which returns Uint8Array obj
+    // const passwordBuffer = new TextEncoder("utf-8").encode(pass)
+    // const importedKey = await crypto.subtle.importKey("raw", passwordBuffer, "PBKDF2", false, ["deriveBits"])
+    // const saltBuffer = TextEncoder.encode(salt)
+    // const params = {name: "PBKDF2", hash: hash, salt: saltBuffer, iterations: iterations}
+
+    // console.log(importedKey)
+
+
+    // console.log(pass)
+
 
     this.setState({
       pass
@@ -36,6 +46,8 @@ class App extends React.Component {
   // });
   //   }
 
+  }
+
 
   render() {
     const { pass } = this.state;
@@ -50,9 +62,9 @@ class App extends React.Component {
 
       <div className="App">
         <header className="App-header">
-          <form  onSubmit={e => this.deriveKey(e)}>
+          <form  onSubmit={e => this.generateKey(e)}>
             <label>
-              Name:
+              pass
 
             </label>
             <input type="text" placeholder="Enter pass" ref="passphraseItem" />
